@@ -7,7 +7,7 @@ class WPAS_Field {
     
     private $id;
     private $name;
-    private $classes;
+    private $class;
     private $attributes;
     private $label;
     private $type;
@@ -118,7 +118,7 @@ class WPAS_Field {
             $output .= $this->pre_html;
 
             if (!defined('WPAS_DISABLE_WRAPPERS') || !WPAS_DISABLE_WRAPPERS) {
-                $output .= '<div id="wpas-'.$this->id.'" class="wpas-'.$this->id.' wpas-'.$this->type.'-field wpas-field">';
+                $output .= '<div id="wpas-'.$this->id.'" class="wpas-'.$this->id.' wpas-'.$this->type.'-field wpas-field'.$this->classes.'">';
             }
 
             if ($this->label) {
@@ -220,8 +220,7 @@ class WPAS_Field {
             $output .=  '"';
             $output .= ($multi) ? ' multiple="multiple"' : '';
             $output .= '  class="';
-            $output .= ($multi) ? 'wpas-multi-select' : 'wpas-select';
-            $output .= ' ' . $this->classes.'"';
+            $output .= ($multi) ? 'wpas-multi-select' : 'wpas-select"';
             $output .= $this->add_attributes();
             $output .= '>';
 
@@ -296,7 +295,7 @@ class WPAS_Field {
         $el = ($this->nested) ? 'li' : 'div';
         $output = '';
         $output .= '<'.$el.' class="wpas-'.$this->id.'-checkbox-'.$ctr.'-container wpas-'.$this->id.'-checkbox-container wpas-checkbox-container">';
-        $output .= '<input type="checkbox" id="wpas-'.$this->id.'-checkbox-'.$ctr.'" class="wpas-'.$this->id.'-checkbox wpas-checkbox'.$this->classes.'" name="'.$this->name.'[]" value="'.$value.'"';
+        $output .= '<input type="checkbox" id="wpas-'.$this->id.'-checkbox-'.$ctr.'" class="wpas-'.$this->id.'-checkbox wpas-checkbox" name="'.$this->name.'[]" value="'.$value.'"';
             if (in_array($value, $this->selected_r, true)) {
                 $output .= ' checked="checked"';
             }
@@ -317,7 +316,7 @@ class WPAS_Field {
         $el = ($this->nested) ? 'li' : 'div';
         $output = '';
         $output .= '<div class="wpas-'.$this->id.'-radio-'.$ctr.'-container wpas-'.$this->id.'-radio-container wpas-radio-container">';
-        $output .= '<input type="radio" id="wpas-'.$this->id.'-radio-'.$ctr.'" class="wpas-'.$this->id.'-radio wpas-radio'.$this->classes.'" name="'.$this->name.'" value="'.$value.'"';
+        $output .= '<input type="radio" id="wpas-'.$this->id.'-radio-'.$ctr.'" class="wpas-'.$this->id.'-radio wpas-radio" name="'.$this->name.'" value="'.$value.'"';
             if (in_array($value, $this->selected_r)) {
                 $output .= ' checked="checked"';
             }
@@ -388,7 +387,7 @@ class WPAS_Field {
         $placeholder = '';
         if ($this->placeholder)
             $placeholder = ' placeholder="'.$this->placeholder.'"';
-        $output = '<input type="'.$input_type.'" id="'.$this->id.'" class="wpas-'.$input_type.''.$this->classes.'" value="'.$value.'" name="'.$this->name.'"'.$placeholder.' '.$this->add_attributes().'>';
+        $output = '<input type="'.$input_type.'" id="'.$this->id.'" class="wpas-'.$input_type.'" value="'.$value.'" name="'.$this->name.'"'.$placeholder.' '.$this->add_attributes().'>';
         return $output;
     }
 
@@ -402,7 +401,7 @@ class WPAS_Field {
         $placeholder = '';
         if ($this->placeholder)
             $placeholder = ' placeholder="'.$this->placeholder.'"';
-        $output = '<textarea id="'.$this->id.'" class="wpas-textarea'.$this->classes.'" name="'.$this->name.'"'.$placeholder.'  '.$this->add_attributes().'>'.$value.'</textarea>';    
+        $output = '<textarea id="'.$this->id.'" class="wpas-textarea" name="'.$this->name.'"'.$placeholder.'  '.$this->add_attributes().'>'.$value.'</textarea>';    
         return $output; 
     }
 
@@ -412,7 +411,7 @@ class WPAS_Field {
      * @since 1.0
      */
     private function submit() {
-        $output = '<input type="submit" class="wpas-submit'.$this->classes.'" value="'.esc_attr($this->values).'" '.$this->add_attributes().'>';
+        $output = '<input type="submit" class="wpas-submit" value="'.esc_attr($this->values).'" '.$this->add_attributes().'>';
         return $output;
     }
 
